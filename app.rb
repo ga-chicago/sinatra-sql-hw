@@ -68,6 +68,19 @@ get '/food/:id' do
   res[0].to_json
 end
 
+post '/food' do
+  data = eval(request.body.read)
+
+  name = data[:name]
+  cuisine = data[:cuisine]
+  price = data[:price]
+  health = data[:health]
+
+  conn.exec("INSERT INTO food (name, cuisine) VALUES
+  ('#{name}','#{cuisine}');")
+  "Success"
+end
+
 patch '/food/:id' do
   id = params[:id]
   data = eval(request.body.read)
