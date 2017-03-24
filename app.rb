@@ -67,5 +67,15 @@ conn.exec("INSERT INTO drinks (name, flavor, price) VALUES('#{name}', '#{flavor}
   "success"
 end
 
+def destroy
+  @post = Post.find(params[:id])
+   @post.destroy
 
+delete '/drinks/:id' do
+  id = params[:id]
+  destroy = :id
+  res = conn.exec("SELECT id, name FROM drinks WHERE id=#{id};")
+  res [0].to_json
+  end
+end
 
