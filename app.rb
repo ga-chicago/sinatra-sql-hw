@@ -31,3 +31,13 @@ post '/restaurants' do
   ('#{name}','#{cuisine}', #{price}, '#{health}');")
   "Success"
 end
+
+
+patch '/restaurants' do
+
+end
+
+delete '/restaurants' do
+
+end
+
