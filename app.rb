@@ -73,8 +73,6 @@ post '/food' do
 
   name = data[:name]
   cuisine = data[:cuisine]
-  price = data[:price]
-  health = data[:health]
 
   conn.exec("INSERT INTO food (name, cuisine) VALUES
   ('#{name}','#{cuisine}');")
