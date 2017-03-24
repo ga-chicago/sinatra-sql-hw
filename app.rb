@@ -34,13 +34,33 @@ end
 
 # ---------------------------------------------------
 
+patch '/restaurants/:id' do
+  id = params[:id]
+  data = eval(request.body.read)
+  name = data[:name]
+  cuisine = data[:cuisine]
+  price = data[:price]
+  health = data[:health]
+
+conn.exec("UPDATE restaurants SET name = #{name}, cuisine = #{cuisine}, price = #{price}, health = #{health}, WHERE id = #{id};")
+"success"
+end
+
+delete '/restaurants/:id' do
+  id = params[:id]
+  conn.exec("DELETE FROM restaurants WHERE id = #{id};")
+
+# -------------------------------------------------------
+
+# HW BELOW THIS LINE!!
+
 # hw: add update and delete
 # create a whole other table
 # create update delete -----
 
 get '/drinks' do
   res = conn.exec("SELECT * FROM drinks")
-  restaurants = []
+  drinks = []
   res.each do |drink|
     drinks.push(drink)
   end
@@ -67,7 +87,7 @@ conn.exec("INSERT INTO drinks (name, flavor, price) VALUES('#{name}', '#{flavor}
   "success"
 end
 
-def destroy
+def destroy 
   @post = Post.find(params[:id])
    @post.destroy
 
@@ -78,4 +98,4 @@ delete '/drinks/:id' do
   res [0].to_json
   end
 end
-
+\
