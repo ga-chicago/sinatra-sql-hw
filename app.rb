@@ -33,12 +33,20 @@ post '/restaurants' do
 end
 
 
-patch '/restaurants' do
+patch '/restaurants/:id' do
+  id = params[:id]
 
+  price = data[:price]
+
+  conn.exec("UPDATE restaurants SET #{price} WHERE id = #{id};")
+  "Success"
 end
 
-delete '/restaurants' do
+delete '/restaurants/:id' do
+  id = params[:id]
 
+  conn.exec("DELETE FROM restaurants WHERE id = #{id};")
+  "Success"
 end
 
 
@@ -65,17 +73,33 @@ get '/mountains/:id' do
   res[0].to_json
 end
 
-post '/mountains/:id' do
+post '/mountains' do
 
   data = eval(request.body.read)
 
   name = data[:name]
   state = data[:state]
   highest_peak = data[:highest_peak]
-  trails = data[:tails]
+  trails = data[:trails]
 
-  conn.exec("INSERT INFO mountains (name, state, highest_peak, trails) VALUES ('#{name}', '#{state}', '#{highest_peak}', '#{trail}');")
+  conn.exec("INSERT INFO mountains (name, state, highest_peak, trails) VALUES ('#{name}', '#{state}', #{highest_peak}, #{trails});")
 
+  "Success"
+end
+
+patch '/mountains/:id' do
+  id = params[:id]
+
+  trails = data[:trails]
+
+  conn.exec("UPDATE mountains SET #{trails} WHERE id = #{id};")
+  "Success"
+end
+
+delete '/mountains/:id' do
+  id = params[:id]
+
+  conn.exec("DELETE FROM mountains WHERE id = #{id}};")
   "Success"
 end
 
