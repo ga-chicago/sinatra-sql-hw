@@ -31,3 +31,41 @@ post '/restaurants' do
   ('#{name}','#{cuisine}', #{price}, '#{health}');")
   "Success"
 end
+
+# ---------------------------------------------------
+
+# hw: add update and delete
+# create a whole other table
+# create update delete -----
+
+get '/drinks' do
+  res = conn.exec("SELECT * FROM drinks")
+  restaurants = []
+  res.each do |drink|
+    drinks.push(drink)
+  end
+
+  drinks.to_json
+
+end
+
+
+get '/drinks/:id' do
+  id = params[:id]
+  puts id
+  res = conn.exec("SELECT id, name FROM drinks WHERE id=#{id};")
+  res [0].to_json
+end
+
+post '/drinks' do
+  data = eval(request.body.read)
+  name = data[:name]
+  price = data[:price]
+  flavor = data[:flavor]
+
+conn.exec("INSERT INTO drinks (name, flavor, price) VALUES('#{name}', '#{flavor}', '#{price}');")
+  "success"
+end
+
+
+
