@@ -16,7 +16,7 @@ end
 get '/restaurants/:id' do
   id = params[:id]
   res = conn.exec("SELECT id, name FROM restaurants WHERE id = #{id};")
-  res[0].to_json
+  res[].to_json
 end
 
 post '/restaurants' do
@@ -31,3 +31,49 @@ post '/restaurants' do
   ('#{name}','#{cuisine}', #{price}, '#{health}');")
   "Success"
 end
+
+patch '/restaurants:id'do
+  id = params[:id]
+  data = eval("UPDATE restaurants SET name = '#{name}', cuisine = '#{cuisine}', price = #{price}, health = '#{health}' WHERE id = #{id};"))
+end
+
+delete '/restaurants/:id' do
+  id = params[:id]
+  conn.exec("DELETE FROM restaurants WHERE ID = #{id};")
+  "success"
+
+end
+
+get '/dessert' do
+  res = conn.exec("SELECT name, type, flavor FROM dessert;")
+   dessert = []
+   res.each do |dessert|
+     dessert.push(dessert)
+   end
+   dessert.to_json
+end
+
+get '/dessert/:id' do
+  id = params[:id]
+   res = conn.exec("SELECT name, type, flavor FROM dessert FROM dessert WHERE id = #{id};")
+   res[0].to_json
+ +end
+
+post '/dessert' do
+   data = eval(request.body.read)
+ 
+   name = data[:name]
+   type = data[:type]
+   flavor = data[:flavor]
+  
+ 
+   conn.exec("INSERT INTO dessert (name, type, flavor)
+              VALUES('#{name}','#{type}', '#{flavor}');")
+   "yummmy!"
+ end
+
+
+
+
+
+
