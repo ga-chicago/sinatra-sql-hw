@@ -31,3 +31,25 @@ post '/restaurants' do
   ('#{name}','#{cuisine}', #{price}, '#{health}');")
   "Success"
 end
+
+patch '/restaurants/:id' do
+  id = params[:id]
+
+  price = data[:price]
+
+  conn.exec("UPDATE restaurants SET #{price} WHERE id = #{id};")
+  "Success"
+end
+
+
+delete '/restaurants/:id' do
+  id = params[:id]
+  conn.exec("DELETE FROM restaurants WHERE ID = #{id};")
+  "success"
+
+end
+
+
+
+
+
